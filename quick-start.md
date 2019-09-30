@@ -1,4 +1,4 @@
-# Quickstart: GitHub Classroom for Teachers
+# Quickstart: [GitHub Classroom](https://classroom.github.com) for Teachers
 
 ## Once per teacher / program:
 
