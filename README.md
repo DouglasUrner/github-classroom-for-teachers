@@ -28,7 +28,7 @@ You will also want to create a team for the students. When you are in the viewin
 
 3. Add all other teachers and TAs to the organizations as owners.
 
-4. Go to the current year's version of the classroom organization. Under settings, go to member privileges. Change Default repository permission to "none" (if it's not already) and save these changes. This will make it so that students cannot change non-assignment repositories in the organization.
+4. Go to the current year's version of the classroom organization. Under settings, go to member privileges. Change Base permissions to "none" (if it's not already) and save these changes. This will make it so that students cannot change non-assignment repositories in the organization.
 
 5.  Add students to the organization. You can do in this two ways. The first is by manually adding students via email to the organization as members. This can be quite a pain if you have more than 5 students in your class.
 
@@ -98,7 +98,7 @@ Here are the commands that I used in my terminal to do the above:
 3. Edit the `clone_all_helper_example.sh` script so that your class specific organization and your username replaces the default settings in the organization and username fields
 
 4. When you are ready to edit all the assignments, go to the terminal and navigate to the `mass_clone` repository. Type in `./clone_all_helper_example.sh`. You can then enter in the assignment prefix when prompted (or just type `./clone_all_helper_example.sh assignment-prefix`). For example, if we are grading `unit-1-homework-1`, then I would type in
-`./clone_all_helper_example.sh unit-1-homework-1`. You will then be prompted to enter your GitHub password. Unfortunately, you will have to enter in the password every time you do this step, even if you have SSH set up (which you should!). Your directory structure will now look like this
+`./clone_all_helper_example.sh unit-1-homework-1`. You will then be prompted to enter your GitHub password. Unfortunately, you will have to enter in the password every time you do this step, even if you have SSH set up (which you should!). Please also note that if you have two factor authentication, you will have to [generate a personal access token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) and use this token instead of your password. You may also have to change the protocol variable in `clone_all_helper_example.sh` from "ssh" to "https", although I'm not sure about this. Your directory structure will now look like this
 
 ```
 class-fall-2017
@@ -138,7 +138,17 @@ And here is a GIF showing how to do the above:
 
 5. You can either edit all the assignments by typing comments into their documents, or by adding a new file with comments to each student's repository. If there is only one document that students will be editing, then it's possible to open up each student's document, put in your changes, and then save. This is also nice because you can use regular expressions to open up every student's assignment without you clicking. For example, if the document is called homework1.Rmd, and you are inside of the unit-1-homework-1 directory, you can type `open */homework1.Rmd` (you can replace open with whatever command you want so that the files open in your preferred editor). You can then work through each student's assignment, saving and then closing their assignment after you are done grading. You may or may not want to put official assignment grade into your comments due to privacy issues.
 
-6. After saving (you have to save!) your changes and/or new files, navigate to the `mass_clone` directory. Type in `./push_all.sh assignment-prefix`. This script will commit all of your changes with the same commit message ("Graded $date $time"), and then push all of the changes back to the students' repositories.
+6. After saving (you have to save!) your changes and/or new files, navigate to the `mass_clone` directory. Type in `./push_all.sh assignment-prefix` (this is similar to the GIF above). This script will commit all of your changes with the same commit message ("Graded $date $time"), and then push all of the changes back to the students' repositories.
+
+### Alternate Grading method using Pull requests
+In the previous method of pulling down students’ work, adding a commit to their work, and pushing it back up is a good simple approach. Another way of grading would be for students to take advantage of GitHub's pull requests. In the following steps we will go into how this can be conducted:
+1.  In order to do this, students would need to create a branch off the master to do their assignment. 
+2.  Students would then make their changes in the branch 
+3. When they are ready to submit to be graded, they would follow this tutorial on how to create [pull requests](https://help.github.com/en/articles/creating-a-pull-request). Here is example of what a pull request looks like with feedback: [example](https://github.com/acorbin3/Math-Project/pull/2)
+4. The instructors will add comments in this pull request. Depending on how you want to operate, you could allow for additional changes to give the student an opportunity to improve their code and grade. Opinion from @acorbin3 - I know this can be controversial, but at least in the software industry this is how software is development and I feel that us as instructors it’s our job to prepare students to be successful in the industry and that we should simulate this as much as we can.
+
+This doesn’t address the part where we need running and testing the assignments. We can follow the same steps to pull down peoples’ assignments in [Grading assignments](#grading-assignments) and run the assignments. There is another approach to set up automated test using TravisCI. Here is a blog post that goes into details on this approach [Real-time feedback for students using continuous integration tools](https://github.blog/2017-03-01-real-time-feedback-for-students-using-continuous-integration-tools/). Also here is a recent (2019) success story of this approach in action where they boosted their passing rate from 76 to 90% [How GitHub Classroom and Travis CI improved students’ grades](https://github.blog/2019-02-12-how-github-classroom-and-travis-ci-improved-students-grades/)
 
 ### Additional resources
 * https://classroom.github.com/videos
+* https://ecots2018.github.io/ another great guide from Adam Sullivan at Brown University
